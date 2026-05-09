@@ -1,0 +1,8 @@
+# Per-repo command allowlist for eco-telemetry. Pure C# project - dotnet
+# is the only dev verb. Coily is the canonical entry point so the lockdown
+# can deny bare dotnet invocations and route through the audited path.
+
+commands:
+  build:
+    run: dotnet build
+    description: Build the EcoTelemetry mod against Eco.ReferenceAssemblies.
