@@ -42,3 +42,11 @@ EcoTelemetry is an OpenTelemetry-backed observability mod for Eco game servers. 
 - **Out of scope (today)** - Traces are stubbed and earmarked for v2. No `IConfigurablePlugin` web UI integration. No runtime modification of game-simulation logic.
 - **Eco version coupling** - Depends on the `Eco.ReferenceAssemblies` NuGet package (currently 0.13.0-beta-release-998). No forward or backward compatibility guarantees.
 - **Public repo discipline** - All references anchor to public wikis (`wiki.play.eco/en/Modding`, `docs.play.eco/`) and the official ModKit on GitHub. No internal Eco source leaks.
+
+## See also
+
+- [README.md](../README.md) - human-facing intro.
+- [AGENTS.md](../AGENTS.md) - agent-facing operating rules.
+- [.coily/coily.yaml](../.coily/coily.yaml) - allowlisted commands.
+
+Cross-reference convention from [coilysiren/coilyco-ai#313](https://github.com/coilysiren/coilyco-ai/issues/313).
