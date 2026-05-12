@@ -57,3 +57,7 @@ Per the workspace "Default to proactive scheduling" rule: after pushing to `main
 - **Verify CI**: `coily gh run list --repo coilysiren/eco-telemetry --limit 1` should show `completed/success`. Re-schedule once at +180s if in progress; stop on failure.
 - **Verify install**: `coily ssh kai-server ls /home/kai/Steam/steamapps/common/EcoServer/Mods/UserCode/EcoTelemetry/` should show the freshly written assembly. Compare mtime to the push time; mismatched mtime means the deploy didn't run.
 - **Eco server reload**: the mod takes effect after the running Eco server reloads (server restart or in-game `/reload` by an admin). Don't trigger that automatically; just note in the wake-up summary that a reload is pending if the assembly is fresh but telemetry hasn't updated.
+
+## Commands
+
+Route every dev command through coily, which reads [`.coily/coily.yaml`](.coily/coily.yaml). The lockdown denies bare invocations of the underlying tools (`dotnet`, etc.). Add new verbs to that file before invoking them.

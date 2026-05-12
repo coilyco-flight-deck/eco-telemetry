@@ -61,3 +61,7 @@ EcoTelemetry is built against [Eco.ReferenceAssemblies](https://www.nuget.org/pa
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+## Commands
+
+Dev commands are declared in [`.coily/coily.yaml`](.coily/coily.yaml). Run them as `coily exec <verb>`.
