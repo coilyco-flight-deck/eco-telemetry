@@ -6,3 +6,17 @@ commands:
   build:
     run: dotnet build
     description: Build the EcoTelemetry mod against Eco.ReferenceAssemblies.
+
+# Catalog metadata for the cross-repo knowledge graph.
+# Schema: coilysiren/coilyco-ai#420 (tracker).
+catalog:
+  kind: Component
+  type: mod
+  system: eco
+  owner: kai
+  lifecycle: production
+  description: "OpenTelemetry observability mod for Eco game servers."
+  dependsOn:
+    - coilysiren/otel-a2a-relay
+  providesApis:
+    - eco-otel-spans
