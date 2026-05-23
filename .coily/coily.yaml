@@ -15,6 +15,7 @@ catalog:
   system: eco
   owner: kai
   lifecycle: production
+  dependsOn: []
   description: "OpenTelemetry observability mod for Eco game servers."
   providesApis:
     - eco-otel-spans
