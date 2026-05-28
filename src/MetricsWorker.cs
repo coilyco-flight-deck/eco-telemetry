@@ -9,11 +9,7 @@ using System.Threading.Tasks;
 using Eco.Gameplay.Players;
 using Microsoft.Extensions.Logging;
 
-/// <summary>
-/// Registers Eco-specific observable instruments on the supplied <see cref="Meter"/>.
-/// Gauges are pull-based: the OTel reader polls the callbacks on its export interval, so there's no per-tick work
-/// to do beyond keeping the worker thread alive until shutdown.
-/// </summary>
+/// <summary>Registers pull-based Eco metric instruments. See docs/internals.md.</summary>
 internal sealed class MetricsWorker
 {
     private readonly EcoTelemetryConfig config;
@@ -46,15 +42,14 @@ internal sealed class MetricsWorker
         }
         catch
         {
-            // Eco's UserManager may not be ready during early init; report 0 rather than throwing into the OTel reader.
+            // UserManager may not be ready during early init. See docs/internals.md.
             return 0;
         }
     }
 
     public Task TickAsync(CancellationToken token)
     {
-        // Worker is no longer the metrics driver - OTel's PeriodicExportingMetricReader polls observable instruments
-        // on its own interval. Just block until shutdown so IWorkerPlugin's loop stays parked.
+        // OTel polls observable instruments itself. Block until shutdown.
         return Task.Delay(Timeout.Infinite, token);
     }
 }

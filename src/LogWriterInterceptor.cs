@@ -7,11 +7,7 @@ using System.Reflection;
 using Eco.Shared.Logging;
 using Microsoft.Extensions.Logging;
 
-/// <summary>
-/// Wraps the existing Eco ILogWriter so every log line also flows through the OTel logs pipeline.
-/// The game's Log.Writer property is set-once. Replacing it after game init requires reflecting on the static
-/// backing field. Best-effort: if the field shape changes the wrapper is silently skipped.
-/// </summary>
+/// <summary>Wraps Eco's ILogWriter to mirror logs into OTel.</summary>
 internal sealed class LogWriterInterceptor : IDisposable
 {
     private readonly ILogger logger;

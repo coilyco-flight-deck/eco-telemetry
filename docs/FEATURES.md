@@ -24,17 +24,9 @@ EcoTelemetry is an OpenTelemetry-backed observability mod for Eco game servers. 
 - **JSON config file** - `Configs/EcoTelemetry.json`, loaded at plugin init. Comments and trailing commas supported. Sensible defaults plus optional resource attributes for service metadata.
 - **Toggleable signals** - Feature flags `EnableLogs`, `EnableMetrics`, `EnableTraces` (traces stubbed for v1). Metrics export interval configurable (default 15s).
 
-### Operational tooling and resilience
+### Operations and build
 
-- **Smoke-probe diagnostics** - Synchronous HTTP POST to the metrics endpoint on startup with a timeout. Result persisted to `Logs/EcoTelemetry/smoke-probe.txt` for visibility after journal rotation.
-- **Console exporter fallback** - Empty OTLP endpoint defaults to the OpenTelemetry console exporter so admins can validate the signal pipeline locally.
-- **Dual-export diagnostic mode** - Optional `EmitConsoleAlongsideOtlp` flag mirrors each export batch to stdout alongside OTLP. Diagnostic only, off by default.
-- **Defensive error handling** - Log interception falls back gracefully if reflection fails. Exception hooks swallow internal errors to prevent re-entrance. `UserManager` readiness checks guard against early-init crashes.
-
-### Build and deployment
-
-- **Single-package mod distribution** - Release ZIP contains the precompiled DLL plus all transitive OpenTelemetry NuGet dependencies. No runtime `.nuget/` step required on the Eco server.
-- **GitHub Actions release workflow** - Automates .NET build and dependency bundling.
+Operational tooling, resilience, and packaging live in [operations.md](operations.md).
 
 ## Scope and boundaries
 

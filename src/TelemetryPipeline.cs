@@ -12,10 +12,7 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 
-/// <summary>
-/// Owns the OTel SDK objects (LoggerFactory, MeterProvider, TracerProvider) for the lifetime of the plugin.
-/// Each signal can route to its own endpoint - logs to Sentry, metrics to VictoriaMetrics, etc.
-/// </summary>
+/// <summary>Owns the OTel SDK objects per signal. See docs/internals.md.</summary>
 internal sealed class TelemetryPipeline : IDisposable
 {
     public const string MeterName = "EcoTelemetry";
@@ -91,8 +88,7 @@ internal sealed class TelemetryPipeline : IDisposable
             .AddMeter("OpenTelemetry.Instrumentation.Runtime")
             .AddRuntimeInstrumentation();
 
-        // Diagnostic prints while #5 is open. Goes to stdout -> journal so we
-        // can see exactly which branch the config resolution lands in.
+        // Diagnostic prints while #5 is open. See docs/internals.md.
         Console.Error.WriteLine($"[EcoTelemetry] StartMetrics: ResolvedMetricsEndpoint=[{this.config.ResolvedMetricsEndpoint}] OtlpMetricsEndpoint=[{this.config.OtlpMetricsEndpoint}] OtlpEndpoint=[{this.config.OtlpEndpoint}] EmitConsoleAlongsideOtlp={this.config.EmitConsoleAlongsideOtlp}");
 
         if (string.IsNullOrWhiteSpace(this.config.ResolvedMetricsEndpoint))
@@ -103,11 +99,7 @@ internal sealed class TelemetryPipeline : IDisposable
         else
         {
             Console.Error.WriteLine($"[EcoTelemetry] StartMetrics: attaching OTLP exporter to {this.config.ResolvedMetricsEndpoint}");
-            // Both AddOtlpExporter overloads (single-arg and two-arg) silently
-            // failed to add a reader to the pipeline despite Build returning
-            // OK. Construct the exporter + reader manually and pass it to
-            // builder.AddReader directly, bypassing the helper's
-            // ConfigureBuilder/ConfigureServices indirection. Refs #5.
+            // Manual exporter + reader: AddOtlpExporter added no reader. Refs #5.
             var otlpOptions = new OtlpExporterOptions();
             ConfigureOtlp(
                 otlpOptions,
@@ -124,13 +116,7 @@ internal sealed class TelemetryPipeline : IDisposable
             builder.AddReader(otlpReader);
             Console.Error.WriteLine("[EcoTelemetry] StartMetrics: manual OTLP reader added");
 
-            // Smoke-probe the endpoint synchronously so we know the runtime
-            // can reach it before the periodic exporter starts. Failure here
-            // is the same network failure the exporter would hit silently.
-            // Refs #5.
-            // Persist smoke-probe result to a file so we can read it via
-            // coily ssh cat after the journal has rotated past the
-            // start-of-day window. Refs #5.
+            // Synchronous smoke probe, persisted to a file. Refs #5.
             var smokePath = "Logs/EcoTelemetry/smoke-probe.txt";
             try
             {
@@ -152,10 +138,7 @@ internal sealed class TelemetryPipeline : IDisposable
                 try { System.IO.File.WriteAllText(smokePath, msg + Environment.NewLine); } catch { }
             }
 
-            // Diagnostic: also emit to console alongside OTLP. Lets us see
-            // exactly what the SDK is generating per export tick when an
-            // OTLP-side issue isn't immediately obvious. Trim once the
-            // pipeline is proven end-to-end (#5).
+            // Diagnostic console export alongside OTLP. Refs #5.
             if (this.config.EmitConsoleAlongsideOtlp)
             {
                 Console.Error.WriteLine("[EcoTelemetry] StartMetrics: also attaching Console exporter (EmitConsoleAlongsideOtlp=true)");

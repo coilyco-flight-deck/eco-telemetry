@@ -8,28 +8,23 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-/// <summary>Runtime configuration for EcoTelemetry, loaded from Configs/EcoTelemetry.json.</summary>
+/// <summary>Runtime config. Fields documented in docs/internals.md.</summary>
 public sealed class EcoTelemetryConfig
 {
     public string ServiceName { get; set; } = "eco-server";
 
     public Dictionary<string, string> ResourceAttributes { get; set; } = new();
 
-    /// <summary>OTLP endpoint URL used as the fallback for any signal that doesn't have its own override. Empty falls back to console exporter.</summary>
     public string OtlpEndpoint { get; set; } = "";
 
-    /// <summary>"Grpc" or "HttpProtobuf". Defaults to HttpProtobuf since most managed backends accept it.</summary>
     public string OtlpProtocol { get; set; } = "HttpProtobuf";
 
-    /// <summary>Headers in W3C-style "key1=val1,key2=val2" form. Pass auth tokens here.</summary>
     public string OtlpHeaders { get; set; } = "";
 
-    /// <summary>Per-signal endpoint override for logs. Empty falls back to <see cref="OtlpEndpoint"/>. Common case: Sentry for logs, VictoriaMetrics for metrics.</summary>
     public string OtlpLogsEndpoint { get; set; } = "";
     public string OtlpLogsProtocol { get; set; } = "";
     public string OtlpLogsHeaders { get; set; } = "";
 
-    /// <summary>Per-signal endpoint override for metrics.</summary>
     public string OtlpMetricsEndpoint { get; set; } = "";
     public string OtlpMetricsProtocol { get; set; } = "";
     public string OtlpMetricsHeaders { get; set; } = "";
@@ -49,21 +44,13 @@ public sealed class EcoTelemetryConfig
 
     public int MetricsIntervalSeconds { get; set; } = 15;
 
-    /// <summary>
-    /// When true and an OTLP metrics endpoint is configured, also attach a console exporter so each export tick is
-    /// visible in the host log. Diagnostic only - leaves a duplicate in stdout. Off by default.
-    /// </summary>
+    /// <summary>Diagnostic dual export. See docs/internals.md.</summary>
     public bool EmitConsoleAlongsideOtlp { get; set; } = false;
 
-    /// <summary>
-    /// Subscribe to AppDomain.FirstChanceException. Catches every thrown exception, including caught ones.
-    /// High-volume on a busy server. Off by default; flip on for short diagnostic windows.
-    /// </summary>
+    /// <summary>High-volume first-chance hook. See docs/internals.md.</summary>
     public bool FirstChanceExceptionsEnabled { get; set; } = false;
 
-    /// <summary>
-    /// Wrap Eco's ILogWriter so warnings and errors flow through the OTel logs pipeline. Best-effort, uses reflection.
-    /// </summary>
+    /// <summary>Wrap Eco's ILogWriter. See docs/internals.md.</summary>
     public bool InterceptLogWriter { get; set; } = true;
 
     public static EcoTelemetryConfig Load(string path)

@@ -10,11 +10,7 @@ using Eco.Core.Plugins.Interfaces;
 using Eco.Core.Utils;
 using Microsoft.Extensions.Logging;
 
-/// <summary>
-/// Plugin entry point. The Eco server discovers this via <see cref="IInitializablePlugin"/> at startup and calls
-/// <see cref="Initialize"/> once. v1 wires up the OTel pipeline plus the exception capture surface; metrics and
-/// traces are present as stubs.
-/// </summary>
+/// <summary>Plugin entry point. Lifecycle in docs/internals.md.</summary>
 public sealed class EcoTelemetryPlugin : IModKitPlugin, IInitializablePlugin, IShutdownablePlugin, IWorkerPlugin
 {
     private const string ConfigPath = "Configs/EcoTelemetry.json";

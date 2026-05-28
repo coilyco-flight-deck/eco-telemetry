@@ -6,6 +6,9 @@ commands:
   build:
     run: dotnet build
     description: Build the EcoTelemetry mod against Eco.ReferenceAssemblies.
+  pre-commit-all:
+    run: pre-commit run --all-files
+    description: "Run all pre-commit hooks against all files in the current repo."
 
 # Catalog metadata for the cross-repo knowledge graph.
 # Schema: coilysiren/agentic-os-kai#420 (tracker).
