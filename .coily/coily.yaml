@@ -20,5 +20,3 @@ catalog:
   lifecycle: production
   dependsOn: []
   description: "OpenTelemetry observability mod for Eco game servers."
-  providesApis:
-    - eco-otel-spans
