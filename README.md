@@ -15,7 +15,7 @@ Traces are stubbed.
 
 ## Install
 
-1. Download `EcoTelemetry-<version>.zip` from the [latest release](https://github.com/coilysiren/eco-telemetry/releases).
+1. Download `EcoTelemetry-<version>.zip` from the [latest release](https://github.com/coilyco-flight-deck/eco-telemetry/releases).
 2. Extract into your Eco server's `Mods/` directory so the result looks like `Mods/EcoTelemetry/EcoTelemetry.dll`.
 3. Copy `Configs/EcoTelemetry.example.json` to `Configs/EcoTelemetry.json` and edit:
    - `OtlpEndpoint`: your collector's OTLP HTTP or gRPC endpoint
@@ -72,4 +72,4 @@ Dev commands are declared in [`.coily/coily.yaml`](.coily/coily.yaml). Run them 
 - [docs/FEATURES.md](docs/FEATURES.md) - inventory of what ships today.
 - [.coily/coily.yaml](.coily/coily.yaml) - allowlisted commands.
 
-Cross-reference convention from [coilysiren/agentic-os#59](https://github.com/coilysiren/agentic-os/issues/59).
+Cross-reference convention from [coilysiren/agentic-os#59](https://github.com/coilyco-flight-deck/agentic-os/issues/59).

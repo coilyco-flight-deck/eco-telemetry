@@ -21,4 +21,4 @@ keep that file under the size cap.
 - [internals.md](internals.md) - design notes behind the source.
 - [../README.md](../README.md) - human-facing intro.
 
-Cross-reference convention from [coilysiren/agentic-os#59](https://github.com/coilysiren/agentic-os/issues/59).
+Cross-reference convention from [coilysiren/agentic-os#59](https://github.com/coilyco-flight-deck/agentic-os/issues/59).

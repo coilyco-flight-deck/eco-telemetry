@@ -11,8 +11,8 @@
     <Version>0.1.0</Version>
     <Authors>coilysiren</Authors>
     <Description>OpenTelemetry-backed observability mod for Eco game servers. Exports exceptions, runtime metrics, simulation perf, and traces via OTLP.</Description>
-    <PackageProjectUrl>https://github.com/coilysiren/eco-telemetry</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/coilysiren/eco-telemetry</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/coilyco-flight-deck/eco-telemetry</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/coilyco-flight-deck/eco-telemetry</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
