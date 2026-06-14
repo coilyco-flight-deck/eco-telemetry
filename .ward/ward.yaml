@@ -1,0 +1,22 @@
+# Per-repo command allowlist for eco-telemetry. Pure C# project - dotnet
+# is the only dev verb. Coily is the canonical entry point so the lockdown
+# can deny bare dotnet invocations and route through the audited path.
+
+commands:
+  build:
+    run: dotnet build
+    description: Build the EcoTelemetry mod against Eco.ReferenceAssemblies.
+  pre-commit-all:
+    run: pre-commit run --all-files
+    description: "Run all pre-commit hooks against all files in the current repo."
+
+# Catalog metadata for the cross-repo knowledge graph.
+# Schema: coilysiren/agentic-os-kai#420 (tracker).
+catalog:
+  kind: Component
+  type: mod
+  system: eco
+  owner: kai
+  lifecycle: production
+  dependsOn: []
+  description: "OpenTelemetry observability mod for Eco game servers."
