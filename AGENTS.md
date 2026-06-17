@@ -28,12 +28,12 @@ Same rule applies to private sibling repos under `coilysiren/` (`eco-mods`, `eco
 
 ## Commands
 
-Route every dev command through coily, which reads [`.coily/coily.yaml`](.coily/coily.yaml). The lockdown denies bare invocations of the underlying tools (`dotnet`, etc.). Add new verbs to that file before invoking them.
+Route every dev command through ward, which reads [`.ward/ward.yaml`](.ward/ward.yaml) (run verbs with `ward exec <verb>`). The lockdown denies bare invocations of the underlying tools (`dotnet`, etc.). Add new verbs to that file before invoking them.
 
 ## Validation
 
 ```bash
-coily build
+ward exec build
 ```
 
 The csproj targets `net10.0` (matches `EcoServerTargetFramework` in current Eco) and pulls `Eco.ReferenceAssemblies` from NuGet for type-check. Real validation only happens when the DLL is deployed onto a running server.
@@ -63,5 +63,6 @@ After pushing to `main`, schedule a wake-up (~360s) to verify build + release + 
 - [README.md](README.md) - human-facing intro.
 - [docs/FEATURES.md](docs/FEATURES.md) - inventory of what ships today.
 - [.coily/coily.yaml](.coily/coily.yaml) - allowlisted commands.
+- [.ward/ward.yaml](.ward/ward.yaml) - allowlisted commands (`ward exec`).
 
 Cross-reference convention from [coilysiren/agentic-os#59](https://github.com/coilyco-flight-deck/agentic-os/issues/59).
